@@ -3,7 +3,7 @@ import { FC, ReactElement } from 'react';
 import { Grid } from '@mui/material';
 
 import Profile from '../profile/Profile';
-import AddForm from '../form/AddForm';
+import AddForm from '../forms/AddForm';
 
 const Sidebar: FC = (): ReactElement => {
 
