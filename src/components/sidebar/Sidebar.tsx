@@ -3,6 +3,7 @@ import { FC, ReactElement } from 'react';
 import { Grid } from '@mui/material';
 
 import Profile from '../profile/Profile';
+import AddForm from '../form/AddForm';
 
 const Sidebar: FC = (): ReactElement => {
 
@@ -20,6 +21,7 @@ const Sidebar: FC = (): ReactElement => {
       alignItems: 'center'
     }}>
       <Profile name='Lebron'/>
+      <AddForm />
     </Grid>
   )
 }
