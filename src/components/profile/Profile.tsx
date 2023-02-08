@@ -2,10 +2,7 @@ import { FC, ReactElement } from 'react';
 import PropTypes from 'prop-types';
 
 import { Avatar, Box, Typography } from '@mui/material';
-
-interface IProfile {
-  name?: string;
-}
+import { IProfile } from '../interfaces/IProfile';
 
 const Profile: FC<IProfile> = (props): ReactElement => {
   const {name = 'Minwoo'} = props;
