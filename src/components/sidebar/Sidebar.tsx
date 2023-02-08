@@ -19,7 +19,7 @@ const Sidebar: FC = (): ReactElement => {
       flexDirection: 'column',
       alignItems: 'center'
     }}>
-      <Profile />
+      <Profile name='Lebron'/>
     </Grid>
   )
 }
