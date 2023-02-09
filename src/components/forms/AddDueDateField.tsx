@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 const AddDueDateField: FC<IDateField> = ({
   disabled = false,
-  value = new Date(),
+  value = null, // or new Date()
   onChange = (date)=>console.log(date)
 }): ReactElement => {
 
