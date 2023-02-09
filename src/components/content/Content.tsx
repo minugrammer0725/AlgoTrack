@@ -3,6 +3,8 @@ import { FC, ReactElement } from 'react';
 import { Grid, Box } from '@mui/material';
 import { format } from 'date-fns';
 
+import Counter from './counter/Counter';
+
 const Content: FC = (): ReactElement => {
 
   return (
@@ -15,9 +17,9 @@ const Content: FC = (): ReactElement => {
         <Grid item display='flex' justifyContent='space-around'
           alignItems='center' md={10} xs={12} mb={8} >
           {/* Counters */}
-          <Box>Counter</Box>
-          <Box>Counter</Box>
-          <Box>Counter</Box>
+          <Counter />
+          <Counter />
+          <Counter />
         </Grid>
         <Grid item display='flex' flexDirection='column'
           xs={10} md={8} >
