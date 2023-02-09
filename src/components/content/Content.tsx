@@ -5,6 +5,8 @@ import { format } from 'date-fns';
 
 import Counter from './counter/Counter';
 
+import { Status } from '../enums/Status';
+
 const Content: FC = (): ReactElement => {
 
   return (
@@ -17,9 +19,9 @@ const Content: FC = (): ReactElement => {
         <Grid item display='flex' justifyContent='space-around'
           alignItems='center' md={10} xs={12} mb={8} >
           {/* Counters */}
-          <Counter />
-          <Counter />
-          <Counter />
+          <Counter status={Status.todo}/>
+          <Counter status={Status.attempted} />
+          <Counter status={Status.solved} />
         </Grid>
         <Grid item display='flex' flexDirection='column'
           xs={10} md={8} >
