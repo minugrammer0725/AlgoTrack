@@ -4,7 +4,7 @@ import { ITextField } from '../interfaces/ITextField';
 import PropTypes from 'prop-types';
 
 const AddTitleField: FC<ITextField> = ({
-    onChange = (e) => console.log(e), 
+    onChange = (e) => console.log(e.target.value), 
     disabled = false
   }): ReactElement => {
   return (
