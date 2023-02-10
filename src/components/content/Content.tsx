@@ -3,9 +3,10 @@ import { FC, ReactElement } from 'react';
 import { Grid, Box } from '@mui/material';
 import { format } from 'date-fns';
 
-import Counter from './counter/Counter';
-
 import { Status } from '../enums/Status';
+
+import FlashCard from './flashcard/FlashCard';
+import Counter from './counter/Counter';
 
 const Content: FC = (): ReactElement => {
 
@@ -26,10 +27,9 @@ const Content: FC = (): ReactElement => {
         <Grid item display='flex' flexDirection='column'
           xs={10} md={8} >
           {/* Problems */}
-          <Box>Problem comes here</Box>
-          <Box>Problem comes here</Box>
-          <Box>Problem comes here</Box>
-          <Box>Problem comes here</Box>
+          <FlashCard />
+          <FlashCard />
+          <FlashCard />
         </Grid>
       </Grid>
     
