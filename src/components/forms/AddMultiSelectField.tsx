@@ -2,6 +2,7 @@ import { FC, ReactElement, useState } from 'react';
 import { FormControl, InputLabel, Chip, MenuItem, Select, SelectChangeEvent, Box, OutlinedInput } from '@mui/material';
 
 import { IMultiSelectField } from '../interfaces/IMultiSelectField';
+import PropTypes from 'prop-types';
 
 const AddMultiSelectField: FC<IMultiSelectField> = ({
   values = [],
@@ -41,5 +42,18 @@ const AddMultiSelectField: FC<IMultiSelectField> = ({
   )
 };
 
+AddMultiSelectField.propTypes = {
+  values: PropTypes.arrayOf(PropTypes.string.isRequired),
+  label: PropTypes.string,
+  name: PropTypes.string,
+  onChange: PropTypes.func,
+  disabled: PropTypes.bool,
+  items: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired
+    }).isRequired
+  )
+}
 
 export default AddMultiSelectField;
