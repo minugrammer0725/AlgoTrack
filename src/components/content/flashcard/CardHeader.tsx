@@ -11,7 +11,7 @@ const CardHeader: FC<ICardHeader> = ({
 }): ReactElement => {
   return (
     <Box display='flex' width='100%' 
-      justifyContent='space-between' mb={4}>
+      justifyContent='space-between' mb={3}>
       <Box>
         <Typography variant='h6'>{title}</Typography>
       </Box>
