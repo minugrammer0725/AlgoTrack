@@ -4,8 +4,6 @@ import { ICardFooter } from "./ICardFooter"
 
 export interface ICard
   extends ICardHeader, ICardBody, ICardFooter {
-  id?: string;
   difficulty?: string;
-  status?: string;
-  // category?: string[]
+  // categories?: string[]
 };

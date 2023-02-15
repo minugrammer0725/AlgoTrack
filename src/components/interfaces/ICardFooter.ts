@@ -1,8 +1,10 @@
 import { ChangeEvent, MouseEvent } from 'react';
 
 export interface ICardFooter {
-  onStatusChange?: (e: ChangeEvent<HTMLInputElement>) => void,
+  id: string;
+  status?: string;
+  onStatusChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   onClick?: (e: 
     MouseEvent<HTMLButtonElement> | 
-    MouseEvent<HTMLAnchorElement>) => void
+    MouseEvent<HTMLAnchorElement>) => void;
 };
