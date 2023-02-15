@@ -1,6 +1,15 @@
 import { FC, ReactElement, useState } from 'react';
 
-import { Box, Typography, Stack, SelectChangeEvent } from '@mui/material';
+import { 
+  Box, 
+  Typography, 
+  Stack, 
+  SelectChangeEvent,
+  Button,
+  LinearProgress,
+  Alert,
+  AlertTitle 
+} from '@mui/material';
 
 import AddTitleField from './AddTitleField';
 import AddCodeField from './AddCodeField';
@@ -28,6 +37,14 @@ const AddForm: FC = (): ReactElement => {
   return (
     <Box display='flex' flexDirection={'column'} alignItems='flex-start'
       width={'100%'} px={4} my={6}>
+
+      <Alert
+        severity='success'
+        sx={{width: '100%', marginBottom: '16px'}} >
+        <AlertTitle>Success</AlertTitle>
+        The flashcard has been created!
+      </Alert>
+
       <Typography mb={2} component='h2' variant='h6'>Create new Flash Card!</Typography>
       
       <Stack width='100%' spacing={2}>
@@ -62,9 +79,11 @@ const AddForm: FC = (): ReactElement => {
             ))} 
             value={difficulty} onChange={(e)=>setDifficulty(e.target.value as string)} />
         </Stack>
-        
-
+        <LinearProgress />
+        <Button variant='contained' size='large' fullWidth>Create Card</Button>
       </Stack>
+
+
 
       
     </Box>
