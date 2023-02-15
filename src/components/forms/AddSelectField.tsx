@@ -1,5 +1,5 @@
 import { FC, ReactElement } from 'react';
-import { FormControl, InputLabel, MenuItem, Select, SelectChangeEvent } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
 import { ISelectField } from '../interfaces/ISelectField';
 
 import PropTypes  from 'prop-types';
