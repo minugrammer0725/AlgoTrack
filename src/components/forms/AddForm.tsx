@@ -1,5 +1,4 @@
 import { FC, ReactElement, useState } from 'react';
-
 import { 
   Box, 
   Typography, 
@@ -10,16 +9,21 @@ import {
   Alert,
   AlertTitle 
 } from '@mui/material';
+import { useMutation } from '@tanstack/react-query';
 
+// components
 import AddTitleField from './AddTitleField';
 import AddCodeField from './AddCodeField';
 import AddDueDateField from './AddDueDateField';
 import AddSelectField from './AddSelectField';
 import AddMultiSelectField from './AddMultiSelectField';
 
+// helpers, enums, interfaces 
 import { Difficulty } from '../enums/Difficulty';
 import { Status } from '../enums/Status';
 import { Category } from '../enums/Category';
+import { sendApiRequest } from '../helpers/sendApiRequest';
+import { ICreateCard } from '../interfaces/ICreateCard';
 
 const AddForm: FC = (): ReactElement => {
   const [title, setTitle] = useState<string | undefined>(undefined);
@@ -33,6 +37,15 @@ const AddForm: FC = (): ReactElement => {
     const { target: { value } } = e;
     setCategories(typeof value === 'string' ? value.split('') : value);
   }
+
+  const createCardMutation = useMutation((data: ICreateCard)=>
+    sendApiRequest(
+      'http://localhost:3000/cards',
+      'POST',
+      data
+    )
+  );
+
 
   return (
     <Box display='flex' flexDirection={'column'} alignItems='flex-start'
