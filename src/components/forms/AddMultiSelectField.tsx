@@ -1,4 +1,4 @@
-import { FC, ReactElement, useState } from 'react';
+import { FC, ReactElement } from 'react';
 import { FormControl, InputLabel, Chip, MenuItem, Select, SelectChangeEvent, Box, OutlinedInput } from '@mui/material';
 
 import { IMultiSelectField } from '../interfaces/IMultiSelectField';
@@ -13,19 +13,13 @@ const AddMultiSelectField: FC<IMultiSelectField> = ({
   onChange = (e: SelectChangeEvent<typeof values>) => console.log(e.target.value)
 }): ReactElement => {
 
-  const [category, setCategory] = useState<string[]>([]);
-
-  const handleChange = (e: SelectChangeEvent<typeof category>) => {
-    const { target: { value } } = e;
-    setCategory(typeof value === 'string' ? value.split('') : value);
-  }
 
   return (
     <FormControl fullWidth size='small'>
       <InputLabel id={name}>{label}</InputLabel>
-      <Select labelId={name} id={`select-${name}`} multiple value={category}
+      <Select labelId={name} id={`select-${name}`} multiple value={values}
         input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-        onChange={handleChange} label={label} name={name} disabled={disabled} 
+        onChange={onChange} label={label} name={name} disabled={disabled} 
         renderValue={(selected) => (
           <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
             {selected.map((value) => (
