@@ -1,4 +1,4 @@
-import { FC, ReactElement, useState } from 'react';
+import { FC, ReactElement, useState, useEffect } from 'react';
 import { 
   Box, 
   Typography, 
@@ -32,6 +32,7 @@ const AddForm: FC = (): ReactElement => {
   const [status, setStatus] = useState<string>(Status.todo);
   const [difficulty, setDifficulty] = useState<string>(Difficulty.easy);
   const [categories, setCategories] = useState<string[]>([]);
+  const [showSuccess, setShowSuccess] = useState<boolean>(false);  
 
   const handleCategoryChange = (e: SelectChangeEvent<typeof categories>) => {
     const { target: { value } } = e;
@@ -61,29 +62,42 @@ const AddForm: FC = (): ReactElement => {
     )
   );
 
+  useEffect(() => {
+    if (createCardMutation.isSuccess) {
+      setShowSuccess(true);
+    }
+    const successTimeout = setTimeout(() => {
+      setShowSuccess(false);
+    }, 3000);
+    return () => {
+      clearTimeout(successTimeout);
+    }
+  }, [createCardMutation.isSuccess]);
+
+
 
   return (
     <Box display='flex' flexDirection={'column'} alignItems='flex-start'
       width={'100%'} px={4} my={6}>
-
+      {showSuccess && 
       <Alert
         severity='success'
         sx={{width: '100%', marginBottom: '16px'}} >
         <AlertTitle>Success</AlertTitle>
         The flashcard has been created!
-      </Alert>
+      </Alert>}
 
       <Typography mb={2} component='h2' variant='h6'>Create new Flash Card!</Typography>
       
       <Stack width='100%' spacing={2}>
         {/* Problem Title  */}
-        <AddTitleField onChange={(e)=>setTitle(e.target.value)}/>
+        <AddTitleField onChange={(e)=>setTitle(e.target.value)} disabled={createCardMutation.isLoading}/>
         
         {/* Code  */}
-        <AddCodeField onChange={(e)=>setCode(e.target.value)}/>
+        <AddCodeField onChange={(e)=>setCode(e.target.value)} disabled={createCardMutation.isLoading}/>
 
         {/* Due Date  */}
-        <AddDueDateField value={date} onChange={(date)=>setDate(date as Date)}/>
+        <AddDueDateField value={date} onChange={(date)=>setDate(date as Date)} disabled={createCardMutation.isLoading}/>
 
         {/* Category */}
         
@@ -91,7 +105,7 @@ const AddForm: FC = (): ReactElement => {
           items={Object.values(Category).map((category) => (
             {value: category, label: category}
           ))} 
-          values={categories} onChange={handleCategoryChange}/>
+          values={categories} onChange={handleCategoryChange} disabled={createCardMutation.isLoading}/>
 
         <Stack direction='row' spacing={2} width='100%'>
           {/* Status */}
@@ -99,21 +113,18 @@ const AddForm: FC = (): ReactElement => {
             items={Object.values(Status).map((status) => (
               {value: status, label: status}
             ))}
-            value={status} onChange={(e)=>setStatus(e.target.value as string)} />
-          {/* Priority => Difficulty? */}
+            value={status} onChange={(e)=>setStatus(e.target.value as string)} disabled={createCardMutation.isLoading}/>
+          {/* Difficulty */}
           <AddSelectField label='Difficulty' name='difficulty'
             items={Object.values(Difficulty).map((diff) => (
               {value: diff, label: diff}
             ))} 
-            value={difficulty} onChange={(e)=>setDifficulty(e.target.value as string)} />
+            value={difficulty} onChange={(e)=>setDifficulty(e.target.value as string)} disabled={createCardMutation.isLoading}/>
         </Stack>
-        <LinearProgress />
-        <Button onClick={handleFormSubmit} variant='contained' size='large' fullWidth>Create Card</Button>
+        {createCardMutation.isLoading && <LinearProgress />}
+        <Button disabled={!title||!code||!date||!status||!difficulty||!categories.length||createCardMutation.isLoading} 
+          onClick={handleFormSubmit} variant='contained' size='large' fullWidth>Create Card</Button>
       </Stack>
-
-
-
-      
     </Box>
   )
 }
