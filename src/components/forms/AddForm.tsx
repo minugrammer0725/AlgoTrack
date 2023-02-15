@@ -28,7 +28,7 @@ import { ICreateCard } from '../interfaces/ICreateCard';
 const AddForm: FC = (): ReactElement => {
   const [title, setTitle] = useState<string | undefined>(undefined);
   const [code, setCode] = useState<string | undefined>(undefined);
-  const [date, setDate] = useState<Date | undefined>(new Date());
+  const [date, setDate] = useState<Date | undefined>(undefined);
   const [status, setStatus] = useState<string>(Status.todo);
   const [difficulty, setDifficulty] = useState<string>(Difficulty.easy);
   const [categories, setCategories] = useState<string[]>([]);
@@ -36,6 +36,21 @@ const AddForm: FC = (): ReactElement => {
   const handleCategoryChange = (e: SelectChangeEvent<typeof categories>) => {
     const { target: { value } } = e;
     setCategories(typeof value === 'string' ? value.split('') : value);
+  }
+
+  const handleFormSubmit = () => {
+    if (!title || !date || !code || !date || !categories.length) {
+      return; // missing fields
+    }
+    const card: ICreateCard = {
+      title,
+      code,
+      date: date.toString(),
+      status,
+      difficulty,
+      categories
+    };
+    createCardMutation.mutate(card);
   }
 
   const createCardMutation = useMutation((data: ICreateCard)=>
@@ -93,7 +108,7 @@ const AddForm: FC = (): ReactElement => {
             value={difficulty} onChange={(e)=>setDifficulty(e.target.value as string)} />
         </Stack>
         <LinearProgress />
-        <Button variant='contained' size='large' fullWidth>Create Card</Button>
+        <Button onClick={handleFormSubmit} variant='contained' size='large' fullWidth>Create Card</Button>
       </Stack>
 
 
