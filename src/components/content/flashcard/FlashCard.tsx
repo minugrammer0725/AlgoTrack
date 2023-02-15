@@ -16,6 +16,7 @@ import CardFooter from './CardFooter';
 import PropTypes from 'prop-types';
 
 const FlashCard: FC<ICard> = ({
+  id,
   title = 'Default Title',
   date = new Date(),
   body = 'Default Body',
@@ -41,7 +42,7 @@ const FlashCard: FC<ICard> = ({
       {/* Code part  */}
       <CardBody body={body}/>
       {/* Footer  */}
-      <CardFooter onClick={onClick} onStatusChange={onStatusChange}/>
+      <CardFooter id={id} status={status} onClick={onClick} onStatusChange={onStatusChange}/>
     </Box>
   )
 }
