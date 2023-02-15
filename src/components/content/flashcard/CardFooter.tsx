@@ -4,6 +4,8 @@ import { ICardFooter } from '../../interfaces/ICardFooter';
 import PropTypes from 'prop-types';
 
 const CardFooter: FC<ICardFooter> = ({
+  id,
+  status,
   onStatusChange = (e) => console.log(e), 
   onClick = (e) => console.log(e)
 }): ReactElement => {
@@ -20,6 +22,8 @@ const CardFooter: FC<ICardFooter> = ({
 };
 
 CardFooter.propTypes = {
+  id: PropTypes.string.isRequired,
+  status: PropTypes.string,
   onStatusChange: PropTypes.func,
   onClick: PropTypes.func
 }
