@@ -7,6 +7,6 @@ export interface IMultiSelectField extends IDisabled {
   name?: string;
   label?: string;
   values?: string[];  // or ISelectOptions[] if I want to store option directly
-  onChange?: (e: SelectChangeEvent) => void;
+  onChange?: (e: SelectChangeEvent<string[]>) => void;
   items?: ISelectOptions[];
 };
