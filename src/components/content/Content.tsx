@@ -1,10 +1,12 @@
-import { FC, ReactElement } from 'react';
+import React, { FC, ReactElement } from 'react';
 import { Grid, Box, Alert, LinearProgress } from '@mui/material';
 import { format } from 'date-fns';
 import { Status } from '../enums/Status';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation } from '@tanstack/react-query';
 import { sendApiRequest } from '../helpers/sendApiRequest';
 import { ICardApi } from '../interfaces/ICardApi';
+import { IUpdateCard } from '../interfaces/IUpdateCard';
+import { countCards } from '../helpers/countCards';
 
 import FlashCard from './flashcard/FlashCard';
 import Counter from './counter/Counter';
@@ -20,6 +22,33 @@ const Content: FC = (): ReactElement => {
     },
   );
 
+  const updateCardMutation = useMutation((data: IUpdateCard) => sendApiRequest(
+    'http://localhost:3000/cards',
+    'PUT',
+    data
+  ));
+
+  function onStatusChange(
+    e: React.ChangeEvent<HTMLInputElement>,
+    id: string
+    ) {
+      updateCardMutation.mutate({
+        id,
+        status: e.target.checked ? Status.attempted : Status.todo,
+      })
+    }
+
+  function onCompleteBtnClick(
+    e: React.MouseEvent<HTMLButtonElement> | 
+    React.MouseEvent<HTMLAnchorElement>,
+    id: string
+  ) {
+    updateCardMutation.mutate({
+      id,
+      status: Status.solved
+    })
+  }
+
   return (
     <Grid item md={8} px={4}>
       <Box mb={8} px={4}>
@@ -30,9 +59,9 @@ const Content: FC = (): ReactElement => {
         <Grid item display='flex' justifyContent='space-around'
           alignItems='center' md={10} xs={12} mb={8} >
           {/* Counters */}
-          <Counter status={Status.todo}/>
-          <Counter status={Status.attempted} />
-          <Counter status={Status.solved} />
+          <Counter count={data?countCards(data, Status.todo):0} status={Status.todo}/>
+          <Counter count={data?countCards(data, Status.attempted):0} status={Status.attempted} />
+          <Counter count={data?countCards(data, Status.solved):0} status={Status.solved} />
         </Grid>
         <Grid item display='flex' flexDirection='column'
           xs={10} md={8} >
@@ -49,10 +78,13 @@ const Content: FC = (): ReactElement => {
             {isLoading ? <LinearProgress /> : (
               Array.isArray(data) && data.length>0 && 
               data.map((card) => (
+                // TODO: instead of checking the status here and render conditionally, 
+                // create a filter component that takes in status/difficulty/maybe even categories!
                 <FlashCard id={card.id} key={card.id}
                   title={card.title} date={new Date(card.date)}
                   body={card.code} difficulty={card.difficulty}
-                  status={card.status} />
+                  status={card.status} 
+                  onStatusChange={onStatusChange} onClick={onCompleteBtnClick}/>
               ))
             )}
             {/* Problems */}
