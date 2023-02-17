@@ -1,4 +1,4 @@
-import { FC, ReactElement, useState, useEffect } from 'react';
+import { FC, ReactElement, useState, useEffect, useContext } from 'react';
 import { 
   Box, 
   Typography, 
@@ -25,6 +25,9 @@ import { Category } from '../enums/Category';
 import { sendApiRequest } from '../helpers/sendApiRequest';
 import { ICreateCard } from '../interfaces/ICreateCard';
 
+// context
+import { CardStatusChangeContext } from '../../context';
+
 const AddForm: FC = (): ReactElement => {
   const [title, setTitle] = useState<string | undefined>(undefined);
   const [code, setCode] = useState<string | undefined>(undefined);
@@ -33,6 +36,8 @@ const AddForm: FC = (): ReactElement => {
   const [difficulty, setDifficulty] = useState<string>(Difficulty.easy);
   const [categories, setCategories] = useState<string[]>([]);
   const [showSuccess, setShowSuccess] = useState<boolean>(false);  
+
+  const cardsUpdateContext = useContext(CardStatusChangeContext);
 
   const handleCategoryChange = (e: SelectChangeEvent<typeof categories>) => {
     const { target: { value } } = e;
@@ -65,6 +70,7 @@ const AddForm: FC = (): ReactElement => {
   useEffect(() => {
     if (createCardMutation.isSuccess) {
       setShowSuccess(true);
+      cardsUpdateContext.toggle();
     }
     const successTimeout = setTimeout(() => {
       setShowSuccess(false);
@@ -87,11 +93,11 @@ const AddForm: FC = (): ReactElement => {
         The flashcard has been created!
       </Alert>}
 
-      <Typography mb={2} component='h2' variant='h6'>Create new Flash Card!</Typography>
+      <Typography mb={2} component='h2' variant='h6'>Create new Flash Card</Typography>
       
       <Stack width='100%' spacing={2}>
         {/* Problem Title  */}
-        <AddTitleField onChange={(e)=>setTitle(e.target.value)} disabled={createCardMutation.isLoading}/>
+        <AddTitleField onChange={(e)=>setTitle(e.target.value)} disabled={createCardMutation.isLoading} />
         
         {/* Code  */}
         <AddCodeField onChange={(e)=>setCode(e.target.value)} disabled={createCardMutation.isLoading}/>

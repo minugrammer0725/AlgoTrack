@@ -10,7 +10,7 @@ const AddTitleField: FC<ITextField> = ({
   return (
     <TextField id='title' name='title' label='Title' placeholder='Problem Title'
       variant='outlined' size='small' fullWidth 
-      onChange={onChange}
+      onChange={onChange} 
       disabled={disabled} />
   )
 }

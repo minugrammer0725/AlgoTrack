@@ -14,13 +14,13 @@ const Sidebar: FC = (): ReactElement => {
       right: 0,
       top: 0,
       width: '100%',
-      backgroundColor: 'background.paper',
+      backgroundColor: '#722620',
       display: 'flex',
       justifyContent: 'center',
       flexDirection: 'column',
       alignItems: 'center'
     }}>
-      <Profile name='Lebron'/>
+      <Profile name='Minwoo'/>
       <AddForm />
     </Grid>
   )

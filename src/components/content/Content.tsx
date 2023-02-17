@@ -1,4 +1,4 @@
-import React, { FC, ReactElement } from 'react';
+import React, { FC, ReactElement, useContext, useEffect } from 'react';
 import { Grid, Box, Alert, LinearProgress } from '@mui/material';
 import { format } from 'date-fns';
 import { Status } from '../enums/Status';
@@ -7,11 +7,13 @@ import { sendApiRequest } from '../helpers/sendApiRequest';
 import { ICardApi } from '../interfaces/ICardApi';
 import { IUpdateCard } from '../interfaces/IUpdateCard';
 import { countCards } from '../helpers/countCards';
+import { CardStatusChangeContext } from '../../context';
 
 import FlashCard from './flashcard/FlashCard';
 import Counter from './counter/Counter';
 
 const Content: FC = (): ReactElement => {
+  const cardsUpdateContext = useContext(CardStatusChangeContext);
   const {error, isLoading, data, refetch} = useQuery(
     ['cards'],
     async () => {
@@ -27,6 +29,16 @@ const Content: FC = (): ReactElement => {
     'PUT',
     data
   ));
+
+  useEffect(()=>{
+    refetch();
+  }, [cardsUpdateContext.updated]);
+
+  useEffect(()=>{
+    if (updateCardMutation.isSuccess) {
+      cardsUpdateContext.toggle();
+    }
+  }, [updateCardMutation.isSuccess])
 
   function onStatusChange(
     e: React.ChangeEvent<HTMLInputElement>,

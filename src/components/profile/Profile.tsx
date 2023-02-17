@@ -12,14 +12,14 @@ const Profile: FC<IProfile> = (props): ReactElement => {
     <Box display={'flex'} flexDirection={'column'}
       justifyContent={'center'} alignItems={'center'}>
       {/* Avatar */}
-      <Avatar sx={{
-        width: '96px',
-        height: '96px',
+      {/* <Avatar sx={{
+        width: '60px',
+        height: '60px',
         backgroundColor: 'primary.main',
         marginBottom: '16px'
       }}>
         <Typography variant='h4' color={'text.primary'}>{name[0]}</Typography>
-      </Avatar>
+      </Avatar> */}
       {/* Name */}
       <Typography variant='h6' color={'text.primary'}>Welcome, {name}</Typography>
       {/* Message */}
