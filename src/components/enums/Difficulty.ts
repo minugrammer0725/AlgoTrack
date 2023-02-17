@@ -1,0 +1,8 @@
+// Priority -> Difficulty
+export enum Difficulty {
+  easy = 'easy',
+  medium = 'medium',
+  hard = 'hard'
+};
+
+

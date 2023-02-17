@@ -1,0 +1,22 @@
+export enum Category {
+  Array = 'Array',
+  String = 'String',
+  Bit = 'Bit Operation',
+  Binary = 'Binary Search',
+  HashTable = 'Hash Table',
+  DP = 'Dynamic Programming',
+  Sorting = 'Sorting',
+  Greedy = 'Greedy',
+  DFS = 'Depth-First Search',
+  BFS = 'Breadth-First Search',
+  Tree = 'Tree',
+  LinkedList = 'Linked List',
+  Matrix = 'Matrix',
+  Graph = 'Graph',
+  Stack = 'Stack',
+  Queue = 'Queue',
+  Heap = 'Heap',
+  Recursion = 'Recursion',
+  TP = 'Two Pointers',
+  SW = 'Sliding Window'
+};
