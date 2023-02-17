@@ -1,0 +1,25 @@
+### Fetch all cards
+GET http://localhost:3000/cards
+Content-Type: application/json
+
+### Create new card
+POST http://localhost:3000/cards
+Content-Type: application/json
+
+{
+  "title": "First Title",
+  "date": "2021-01-01",
+  "code": "some code..",
+  "difficulty": "easy",
+  "status": "todo",
+  "categories": ["Array", "Tree"]
+}
+
+### Update card
+PUT http://localhost:3000/cards
+Content-Type: application/json
+
+{
+  "id": "854da4b2-0392-427e-82b4-7ad4805dbfc4",
+  "status": "solved"
+}
